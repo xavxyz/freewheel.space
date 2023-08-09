@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fullscreen">
+  <head>
+    <meta charset="UTF-8" />
+    <title>pyramid.space</title>
+
+    <style>
+      body {
+        margin: 0;
+        background: #333;
+      }
+
+      iframe {
+        opacity: 0;
+        position: absolute;
+        width: 100vw;
+        height: calc(100vh + 300px);
+        top: -150px;
+        transition: opacity 4s ease-out;
+      }
+    </style>
+  </head>
+
+  <body>
+    <iframe
+      title="pyramid.space"
+      id="api-frame"
+      frameborder="0"
+      allowfullscreen=""
+      mozallowfullscreen="true"
+      webkitallowfullscreen="true"
+      allow="autoplay; fullscreen; xr-spatial-tracking"
+      xr-spatial-tracking=""
+      execution-while-out-of-viewport=""
+      execution-while-not-rendered=""
+      web-share=""
+      src="https://sketchfab.com/models/d0796e67a6e94d6d9503b53eef457667/embed?autostart=1&amp;autospin=1&amp;api_version=1.0.0&amp;api_id=47627108012838004&amp;internal=1&amp;ui_infos=0&amp;ui_controls=0&amp;ui_stop=1&amp;watermark=1&amp;continuousRender=0"
+    >
+    </iframe>
+    <script>
+      const iframe = document.querySelector("iframe");
+
+      iframe.addEventListener("load", () => {
+        iframe.style.opacity = 1;
+      });
+    </script>
+  </body>
+</html>
