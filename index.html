@@ -1,48 +1,143 @@
 <!DOCTYPE html>
-<html lang="fullscreen">
+<html>
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>pyramid.space</title>
-
     <style>
       body {
         margin: 0;
-        background: #333;
+        background: #eee;
       }
-
-      iframe {
-        opacity: 0;
-        position: absolute;
-        width: 100vw;
-        height: calc(100vh + 300px);
-        top: -150px;
-        transition: opacity 4s ease-out;
+      div {
+        display: flex;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
       }
     </style>
   </head>
-
   <body>
-    <iframe
-      title="pyramid.space"
-      id="api-frame"
-      frameborder="0"
-      allowfullscreen=""
-      mozallowfullscreen="true"
-      webkitallowfullscreen="true"
-      allow="autoplay; fullscreen; xr-spatial-tracking"
-      xr-spatial-tracking=""
-      execution-while-out-of-viewport=""
-      execution-while-not-rendered=""
-      web-share=""
-      src="https://sketchfab.com/models/d0796e67a6e94d6d9503b53eef457667/embed?autostart=1&amp;autospin=1&amp;api_version=1.0.0&amp;api_id=47627108012838004&amp;internal=1&amp;ui_infos=0&amp;ui_controls=0&amp;ui_stop=1&amp;watermark=1&amp;continuousRender=0"
-    >
-    </iframe>
+    <div>
+      <canvas width="400" height="400"></canvas>
+    </div>
     <script>
-      const iframe = document.querySelector("iframe");
+      const Point3d = function (x, y, z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+      };
 
-      iframe.addEventListener("load", () => {
-        iframe.style.opacity = 1;
-      });
+      // set up the canvas and context
+      const canvas = document.querySelector("canvas");
+      const ctx = canvas.getContext("2d");
+
+      // dimensions
+      const h = canvas.height;
+      const w = canvas.width;
+
+      ctx.fillStyle = "#eee";
+      ctx.strokeStyle = "#333";
+      ctx.lineWidth = w / 100;
+      ctx.lineCap = "round";
+
+      const cx = w / 2;
+      const cy = h / 2;
+      const cz = 0;
+      const size = h / 4;
+
+      const vertices = [
+        new Point3d(cx + size, cy + size, cz - size),
+        new Point3d(cx - size, cy + size, cz - size),
+        new Point3d(cx + size, cy + size, cz + size),
+        new Point3d(cx - size, cy + size, cz + size),
+        new Point3d(cx, cy, cz),
+      ];
+      const edges = [
+        [0, 1],
+        [1, 3],
+        [2, 0],
+        [3, 2],
+        // -
+        [0, 4],
+        [1, 4],
+        [2, 4],
+        [3, 4],
+      ];
+
+      let timeDelta;
+      let timeLast = 0;
+
+      // Radian per second
+      const SPEED_X = 0.05; // rps
+      const SPEED_Y = 0.15; // rps
+      const SPEED_Z = 0.1; // rps
+
+      function spinZ() {
+        // rotate the cube along the z axis
+        const angle = timeDelta * 0.001 * SPEED_Z * Math.PI * 2;
+        for (let v of vertices) {
+          let dx = v.x - cx;
+          let dy = v.y - cy;
+          let x = dx * Math.cos(angle) - dy * Math.sin(angle);
+          let y = dx * Math.sin(angle) + dy * Math.cos(angle);
+          v.x = x + cx;
+          v.y = y + cy;
+        }
+      }
+
+      function spinX() {
+        // rotate the cube along the x axis
+        const angle = timeDelta * 0.001 * SPEED_X * Math.PI * 2;
+        // const angle = delta * Math.PI * 2;
+        for (let v of vertices) {
+          let dy = v.y - cy;
+          let dz = v.z - cz;
+          let y = dy * Math.cos(angle) - dz * Math.sin(angle);
+          let z = dy * Math.sin(angle) + dz * Math.cos(angle);
+          v.y = y + cy;
+          v.z = z + cz;
+        }
+      }
+
+      function spinY() {
+        // rotate the cube along the y axis
+        const angle = timeDelta * 0.001 * SPEED_Y * Math.PI * 2;
+        for (let v of vertices) {
+          let dx = v.x - cx;
+          let dz = v.z - cz;
+          let x = dz * Math.sin(angle) + dx * Math.cos(angle);
+          let z = dz * Math.cos(angle) - dx * Math.sin(angle);
+          v.x = x + cx;
+          v.z = z + cz;
+        }
+      }
+
+      function loop(timeNow) {
+        // calculate the time difference
+        timeDelta = timeNow - timeLast;
+        timeLast = timeNow;
+
+        // background
+        ctx.fillRect(0, 0, w, h);
+
+        spinX();
+        spinY();
+        spinZ();
+
+        // draw each edge
+        for (let edge of edges) {
+          ctx.beginPath();
+          ctx.moveTo(vertices[edge[0]].x, vertices[edge[0]].y);
+          ctx.lineTo(vertices[edge[1]].x, vertices[edge[1]].y);
+          ctx.stroke();
+        }
+
+        // call the next frame
+        requestAnimationFrame(loop);
+      }
+
+      requestAnimationFrame(loop);
     </script>
   </body>
 </html>
