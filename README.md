@@ -15,3 +15,19 @@ https://konvajs.org/ ?
 - https://codepen.io/sdras/pen/gWWQgb
 - https://codepen.io/sdras/pen/RZGqxR + https://github.com/xavxyz/ecliptic-calendar
 - https://github.com/xavxyz/nextjs-page-transitions
+
+### Notes
+
+```js
+// Simplicity
+function spinZ() {
+  for (let v of vertices) {
+    let dx = v.x - cx;
+    let dy = v.y - cy;
+    let x = dx * Math.cos(angle) - dy * Math.sin(angle);
+    let y = dx * Math.sin(angle) + dy * Math.cos(angle);
+    v.x = x + cx;
+    v.y = y + cy;
+  }
+}
+```
