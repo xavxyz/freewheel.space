@@ -150,7 +150,7 @@
       }
 
       let frame = 0;
-      function loop() {
+      function eternalReturn() {
         frame++;
 
         // background
@@ -170,10 +170,10 @@
         }
 
         // call the next frame
-        requestAnimationFrame(loop);
+        requestAnimationFrame(eternalReturn);
       }
 
-      requestAnimationFrame(loop);
+      requestAnimationFrame(eternalReturn);
     </script>
   </body>
 </html>
