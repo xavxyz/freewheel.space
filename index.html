@@ -47,7 +47,7 @@
   <body>
     <div id="particles"></div>
     <script src="particles.min.js"></script>
-    <canvas id="pyramid" width="300" height="300"></canvas>
+    <canvas id="pyramid" class="appear-in" width="300" height="300"></canvas>
     <script>
       particlesJS.load("particles", "particles.json", function () {
         const pyramidCanvas = document.querySelector("#pyramid");
@@ -82,55 +82,61 @@
       const cz = 0;
       const size = h / 4;
 
-      const vertices = [
+      function buildPyramid(vertices) {
+        const edges = [
+          [0, 1],
+          [1, 3],
+          [2, 0],
+          [3, 2],
+          // -
+          [0, 4],
+          [1, 4],
+          [2, 4],
+          [3, 4],
+        ];
+
+        return {
+          vertices,
+          edges,
+        };
+      }
+
+      const topPyramid = buildPyramid([
         // 前右
-        new Point3d(cx + size, cy + size, cz - size),
+        new Point3d(cx + size, cy - 10, cz - size),
         // 前左
-        new Point3d(cx - size, cy + size, cz - size),
+        new Point3d(cx - size, cy - 10, cz - size),
         // 后右
-        new Point3d(cx + size, cy + size, cz + size),
+        new Point3d(cx + size, cy - 10, cz + size),
         // 后左
-        new Point3d(cx - size, cy + size, cz + size),
-        // 枢心
-        new Point3d(cx, cy, cz),
-      ];
+        new Point3d(cx - size, cy - 10, cz + size),
+        // 山巅
+        new Point3d(cx, cy - size, cz),
+      ]);
 
-      const edges = [
-        [0, 1],
-        [1, 3],
-        [2, 0],
-        [3, 2],
-        // -
-        [0, 4],
-        [1, 4],
-        [2, 4],
-        [3, 4],
-      ];
+      const bottomPyramid = buildPyramid([
+        new Point3d(cx + size, cy + 10, cz - size),
+        // 前左
+        new Point3d(cx - size, cy + 10, cz - size),
+        // 后右
+        new Point3d(cx + size, cy + 10, cz + size),
+        // 后左
+        new Point3d(cx - size, cy + 10, cz + size),
+        // 山巅
+        new Point3d(cx, cy + size * 1.5, cz),
+      ]);
 
-      // ~= 5 seconds for a turn in the trigonometric sense
-      const baseSpeed = -(2 * Math.PI) / 300;
+      // ~= 10 seconds for a turn in the trigonometric sense
+      const baseSpeed = (2 * Math.PI) / 1200;
+
+      // 枢心
       const center = { x: cx, y: cy, z: cz };
 
-      /*
-      // Simplicity
-      function spinZ() {
-        for (let v of vertices) {
-          let dx = v.x - cx;
-          let dy = v.y - cy;
-          let x = dx * Math.cos(angle) - dy * Math.sin(angle);
-          let y = dx * Math.sin(angle) + dy * Math.cos(angle);
-          v.x = x + cx;
-          v.y = y + cy;
-        }
-      }
-      */
-
       // ? Complexifun
-      function spinAround(rotationAxis, angle = baseSpeed, ref = center) {
+      function spinAround(pyramid, rotationAxis, angle, ref = center) {
         const offsets = ["x", "y", "z"].filter((axis) => axis !== rotationAxis);
         const [horizontal, vertical] = offsets;
-
-        for (let vertex of vertices) {
+        pyramid.vertices.forEach((vertex, index) => {
           // Change reference
           const deltas = offsets.map((axis) => vertex[axis] - ref[axis]);
           const [horizontalDelta, verticalDelta] = deltas;
@@ -147,32 +153,45 @@
 
           // Switch back to the canvas as reference
           offsets.forEach((axis) => {
-            vertex[axis] = newCoords[axis] + ref[axis];
+            pyramid.vertices[index][axis] = newCoords[axis] + ref[axis];
           });
-        }
+        });
+      }
+
+      function manifest(pyramids) {
+        pyramids.forEach((pyramid) => {
+          pyramid.edges.forEach((edge) => {
+            ctx.beginPath();
+            ctx.moveTo(
+              pyramid.vertices[edge[0]].x,
+              pyramid.vertices[edge[0]].y
+            );
+            ctx.lineTo(
+              pyramid.vertices[edge[1]].x,
+              pyramid.vertices[edge[1]].y
+            );
+            ctx.stroke();
+          });
+        });
       }
 
       let frame = 0;
+      let rotateBy = 0;
       function eternalReturn() {
         frame++;
 
-        // background
+        // 虛
         ctx.fillRect(0, 0, w, h);
 
-        // Demo one basic turn around
-        if (frame <= 300) {
-          spinAround("y", baseSpeed);
-        }
+        spinAround(bottomPyramid, "y", baseSpeed * 2);
+        spinAround(topPyramid, "y", baseSpeed * 3);
 
-        // draw each edge
-        for (let edge of edges) {
-          ctx.beginPath();
-          ctx.moveTo(vertices[edge[0]].x, vertices[edge[0]].y);
-          ctx.lineTo(vertices[edge[1]].x, vertices[edge[1]].y);
-          ctx.stroke();
-        }
+        manifest([
+          topPyramid,
+          // -
+          bottomPyramid,
+        ]);
 
-        // call the next frame
         requestAnimationFrame(eternalReturn);
       }
 
