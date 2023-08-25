@@ -32,28 +32,33 @@
         z-index: 0;
       }
 
-      #pyramid {
-        border-radius: 8px;
+      #manifestation {
+        border-radius: 50%;
         z-index: 1;
       }
 
-      #pyramid.appear-in {
+      #manifestation.appear-in {
         opacity: 0;
         transform-origin: 50% 50%;
-        transition: opacity 1.2s ease-out;
+        transition: opacity 2s ease-out;
       }
     </style>
   </head>
   <body>
     <div id="particles"></div>
     <script src="particles.min.js"></script>
-    <canvas id="pyramid" width="300" height="300"></canvas>
+    <canvas
+      id="manifestation"
+      class="appear-in"
+      width="300"
+      height="300"
+    ></canvas>
     <script>
       particlesJS.load("particles", "particles.json", function () {
-        const pyramidCanvas = document.querySelector("#pyramid");
+        const manifestationCanvas = document.querySelector("#manifestation");
 
         setTimeout(() => {
-          pyramidCanvas.style.opacity = 1;
+          manifestationCanvas.style.opacity = 1;
         }, 1000);
       });
     </script>
@@ -65,7 +70,7 @@
       };
 
       // set up the canvas and context
-      const canvas = document.querySelector("#pyramid");
+      const canvas = document.querySelector("#manifestation");
       const ctx = canvas.getContext("2d");
 
       // dimensions
@@ -125,8 +130,10 @@
         new Point3d(cx, cy + size * 1.5, cz),
       ]);
 
-      // ~= 10 seconds for a turn in the trigonometric sense
-      const baseSpeed = (2 * Math.PI) / 1200;
+      // ? I've lost track of how long it would take for one turn
+      // ! I'm using symbolic numbers here
+      // * And it is a lot of fun
+      const baseSpeed = (2 * Math.PI) / (64 * Math.pow(10, 3));
 
       // 枢心
       const center = { x: cx, y: cy, z: cz };
@@ -199,8 +206,8 @@
         // 虛
         ctx.fillRect(0, 0, w, h);
 
-        spinAround(topPyramid, "y", -baseSpeed * 3);
-        spinAround(bottomPyramid, "y", baseSpeed * 2);
+        spinAround(topPyramid, "y", -baseSpeed * 36);
+        spinAround(bottomPyramid, "y", baseSpeed * 24);
 
         manifest([
           topPyramid,
