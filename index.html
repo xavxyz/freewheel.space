@@ -47,7 +47,7 @@
   <body>
     <div id="particles"></div>
     <script src="particles.min.js"></script>
-    <canvas id="pyramid" class="appear-in" width="300" height="300"></canvas>
+    <canvas id="pyramid" width="300" height="300"></canvas>
     <script>
       particlesJS.load("particles", "particles.json", function () {
         const pyramidCanvas = document.querySelector("#pyramid");
@@ -73,7 +73,6 @@
       const w = canvas.width;
 
       ctx.fillStyle = "#eee";
-      ctx.strokeStyle = "#333";
       ctx.lineWidth = 8;
       ctx.lineCap = "round";
 
@@ -86,8 +85,8 @@
         const edges = [
           [0, 1],
           [1, 3],
-          [2, 0],
           [3, 2],
+          [2, 0],
           // -
           [0, 4],
           [1, 4],
@@ -160,6 +159,10 @@
 
       function manifest(pyramids) {
         pyramids.forEach((pyramid) => {
+          pyramid.edges.sort((a, b) => {
+            return pyramid.vertices[b[0]].z - pyramid.vertices[a[0]].z;
+          });
+
           pyramid.edges.forEach((edge) => {
             ctx.beginPath();
             ctx.moveTo(
@@ -170,6 +173,19 @@
               pyramid.vertices[edge[1]].x,
               pyramid.vertices[edge[1]].y
             );
+
+            if (pyramid.vertices[edge[1]].z === cz) {
+              const forwardBackwardRatio =
+                -(pyramid.vertices[edge[0]].z + size) / (size * 2 * Math.SQRT2);
+
+              ctx.strokeStyle = `hsla(0, 0%, 20%, ${
+                0.84 + forwardBackwardRatio
+              })`;
+            } else {
+              // TODO Gradient on the base edges !
+              ctx.strokeStyle = "hsla(0, 0%, 20%, 0.5)";
+            }
+
             ctx.stroke();
           });
         });
@@ -183,8 +199,8 @@
         // 虛
         ctx.fillRect(0, 0, w, h);
 
+        spinAround(topPyramid, "y", -baseSpeed * 3);
         spinAround(bottomPyramid, "y", baseSpeed * 2);
-        spinAround(topPyramid, "y", baseSpeed * 3);
 
         manifest([
           topPyramid,
