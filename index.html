@@ -119,6 +119,7 @@
       ]);
 
       const bottomPyramid = buildPyramid([
+        // 前右
         new Point3d(cx + size, cy + 10, cz - size),
         // 前左
         new Point3d(cx - size, cy + 10, cz - size),
@@ -170,31 +171,59 @@
             return pyramid.vertices[b[0]].z - pyramid.vertices[a[0]].z;
           });
 
-          pyramid.edges.forEach((edge) => {
-            ctx.beginPath();
-            ctx.moveTo(
-              pyramid.vertices[edge[0]].x,
-              pyramid.vertices[edge[0]].y
-            );
-            ctx.lineTo(
-              pyramid.vertices[edge[1]].x,
-              pyramid.vertices[edge[1]].y
-            );
-
-            if (pyramid.vertices[edge[1]].z === cz) {
+          const styledTopEdges = pyramid.edges
+            .filter(([, endPoint]) => pyramid.vertices[endPoint].z === cz)
+            .map(([startPoint, endPoint]) => {
               const forwardBackwardRatio =
-                -(pyramid.vertices[edge[0]].z + size) / (size * 2 * Math.SQRT2);
+                -(pyramid.vertices[startPoint].z + size) /
+                (size * 2 * Math.SQRT2);
 
-              ctx.strokeStyle = `hsla(0, 0%, 20%, ${
-                0.84 + forwardBackwardRatio
-              })`;
-            } else {
-              // TODO Gradient on the base edges !
-              ctx.strokeStyle = "hsla(0, 0%, 20%, 0.5)";
+              return [
+                startPoint,
+                endPoint,
+                `hsla(0, 0%, 20%, ${0.84 + forwardBackwardRatio})`,
+              ];
+            });
+
+          const styledBaseEdges = pyramid.edges
+            .filter(([, endPoint]) => pyramid.vertices[endPoint].z !== cz)
+            .map(([startPoint, endPoint]) => {
+              const gradient = ctx.createLinearGradient(
+                pyramid.vertices[startPoint].x,
+                pyramid.vertices[startPoint].y,
+                pyramid.vertices[endPoint].x,
+                pyramid.vertices[endPoint].y
+              );
+
+              const [, , startColor] = styledTopEdges.find(
+                ([styledEdgeStartPoint]) => styledEdgeStartPoint === startPoint
+              );
+              const [, , endColor] = styledTopEdges.find(
+                ([styledEdgeStartPoint]) => styledEdgeStartPoint === endPoint
+              );
+
+              gradient.addColorStop(0, startColor);
+              gradient.addColorStop(1, endColor);
+
+              return [startPoint, endPoint, gradient];
+            });
+
+          [...styledBaseEdges, ...styledTopEdges].forEach(
+            ([startPoint, endPoint, style]) => {
+              ctx.beginPath();
+              ctx.moveTo(
+                pyramid.vertices[startPoint].x,
+                pyramid.vertices[startPoint].y
+              );
+              ctx.lineTo(
+                pyramid.vertices[endPoint].x,
+                pyramid.vertices[endPoint].y
+              );
+
+              ctx.strokeStyle = style;
+              ctx.stroke();
             }
-
-            ctx.stroke();
-          });
+          );
         });
       }
 
