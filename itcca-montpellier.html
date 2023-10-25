@@ -1,0 +1,197 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>ITCCA Montpellier — Porte secrète</title>
+    <style>
+      body {
+        background: #fcfcfc;
+      }
+
+      @keyframes open {
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes qigong {
+        100% {
+          transform: rotate(-360deg);
+        }
+      }
+
+      section {
+        height: 100vh;
+        opacity: 0;
+        transition: opacity 3s;
+      }
+
+      form,
+      section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      img {
+        width: 200px;
+        margin-bottom: 50px;
+      }
+
+      input {
+        width: 300px;
+        padding: 8px;
+      }
+
+      button {
+        margin: 10px;
+        padding: 8px;
+        cursor: pointer;
+      }
+
+      input,
+      button {
+        font-size: 20px;
+        border-radius: 10px;
+        border: 2px solid #333;
+      }
+    </style>
+  </head>
+  <body cz-shortcut-listen="true">
+    <section>
+      <img src="./enso.png" />
+      <form>
+        <input
+          type="email"
+          name="email"
+          placeholder="Votre email de contact ITCCA"
+        />
+        <button type="submit">Accéder à la vidéo-cadeau →</button>
+      </form>
+    </section>
+    <script>
+      //  const rows = Array.from(document.querySelectorAll("tr"));
+      // const userRows = rows.filter((row) =>
+      //   row.querySelector(".glyphicon.glyphicon-envelope")
+      // );
+
+      // const users = userRows.reduce((data, row) => {
+      //   const mailTo = row.querySelector(".glyphicon.glyphicon-envelope")
+      //     .parentElement.href;
+      //   const email = mailTo.replace("mailto:", "");
+
+      //   const course = row.querySelector("td:nth-child(8)").innerText;
+
+      //   return [
+      //     ...data,
+      //     {
+      //       course,
+      //       email,
+      //     },
+      //   ];
+      // }, []);
+    </script>
+    <script>
+      /**
+       * Salut ! Tu as vu comme ce code est simple et pas secure du tout ?
+       * Eh, on appelle ça mettre un prototype en production !
+       */
+
+      let enso;
+
+      const data = [
+        { course: "TCC1", email: "alainballoy@gmail.com" },
+        { course: "TCC1", email: "mhtbertrand@hotmail.fr" },
+        { course: "TCC1", email: "nitrox2@free.fr" },
+        { course: "TCC1", email: "rochfacundo@hotmail.fr" },
+        { course: "TCC1", email: "fernandezjeanmichel7@gmail.com" },
+        { course: "TCC1", email: "laurent.fried@gmail.com" },
+        { course: "TCC1", email: "maryline@frenchworkplace.com" },
+        { course: "TCC1", email: "hervelacan@gmail.com" },
+        { course: "TCC1", email: "manon.leterme@protonmail.com" },
+        { course: "TCC1", email: "karinemaub@gmail.com" },
+        { course: "TCC1", email: "antoine.meret@gmail.com" },
+        { course: "TCC1", email: "agathe_revillod@hotmail.com" },
+        { course: "TCC1", email: "philippe.sicard.audicom@numericable.fr" },
+        { course: "TCC1", email: "philippe.sicard.audicom@numericable.fr" },
+        { course: "TCC1", email: "tanoc.tranthien@gmail.com" },
+        { course: "TCC1", email: "coravannier@hotmail.com" },
+        { course: "TCC2", email: "sandrine.berron@gmail.com" },
+        { course: "TCC2", email: "maf.bertrand@gmail.com" },
+        { course: "TCC2", email: "soluane.b34@gmail.com" },
+        { course: "TCC2", email: "mimieviet@hotmail.com" },
+        { course: "TCC2", email: "dourlens.lucie@gmail.com" },
+        { course: "TCC2", email: "mariepierrelalle@gmail.com" },
+        { course: "TCC2", email: "heloise.lop@gmail.com" },
+        { course: "TCC2", email: "francesca.narsi@gmail.com" },
+        { course: "TCC2", email: "guysablier@yahoo.fr" },
+        { course: "TCC2", email: "jcvaltat@gmail.com" },
+        { course: "TCC3", email: "decovision.nb@orange.fr" },
+        { course: "TCC3", email: "joelle.fontana@free.fr" },
+        { course: "TCC3", email: "lepatant@wanadoo.fr" },
+        { course: "TCC3", email: "letimg@hotmail.com" },
+        { course: "TCC3", email: "nicolasrydezuk@yahoo.fr" },
+        { course: "TCC3", email: "sandra.vang@orange.fr" },
+        { course: "TCC4", email: "xavier.cazalot@gmail.com" },
+        { course: "TCC4", email: "acorbinais34@gmail.com" },
+        { course: "TCC4", email: "martin.gerbier@wanadoo.fr" },
+        { course: "TCC4", email: "tam.leroy@wanadoo.fr" },
+        { course: "TCC4", email: "clara1246@protonmail.com" },
+        { course: "TCC4", email: "fabienne.cazalot@gmail.com" },
+        { course: "TCC4", email: "fparat@hotmail.com" },
+        { course: "TCC4", email: "gonzague@net-c.com" },
+        { course: "TCC4", email: "max.lardeur@gmail.com" },
+        { course: "TCC4", email: "gabilou34@gmail.com" },
+        { course: "TCC7", email: "jeanpaulblancheton@gmail.com" },
+        { course: "TCC7", email: "mn.bricout@free.fr" },
+        { course: "TCC7", email: "quantic21@live.fr" },
+        { course: "TCC7", email: "quantic21@live.fr" },
+        { course: "TCC7", email: "frederique_cezard@yahoo.fr" },
+        { course: "TCC7", email: "gaellecugnet@yahoo.fr" },
+        { course: "TCC7", email: "douet.gairaud@wanadoo.fr" },
+        { course: "TCC7", email: "alibellule@orange.fr" },
+        { course: "TCC7", email: "michele.privat34@gmail.com" },
+        { course: "TCC7", email: "franpuy@free.fr" },
+        { course: "TCC7", email: "elisabeth.robbe@wanadoo.fr" },
+        { course: "TCC7", email: "serrano.philippe@neuf.fr" },
+      ];
+
+      const pages = {
+        TCC1: "https://pyramid-space.notion.site/ITCCA-Montpellier-TCC-1-602d3d246a4c478eb00dbc671c514987",
+        TCC2: "https://pyramid-space.notion.site/ITCCA-Montpellier-TCC-2-5ac2ab1d48ac47caafc7a9969b5335fd",
+        TCC3: "https://pyramid-space.notion.site/ITCCA-Montpellier-TCC-3-1a5e801df7c1427c85d1f201e464d973",
+        TCC4: "https://pyramid-space.notion.site/ITCCA-Montpellier-TCC-4-1b4c4f7378e64cd1a860426f394e4727",
+        TCC7: "https://pyramid-space.notion.site/ITCCA-Montpellier-TCC-7-8c6365157b7d468b814eb8b93d49c6b0",
+      };
+
+      function open() {
+        enso = document.querySelector("section");
+        setTimeout(function () {
+          enso.style.opacity = 1;
+        }, 1000);
+      }
+
+      open();
+
+      document
+        .querySelector("form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const email = document.querySelector("input").value;
+
+          const user = data.find((user) => user.email === email);
+
+          if (!user) {
+            window.location.reload();
+          }
+
+          enso.style.opacity = 0;
+
+          setTimeout(() => {
+            window.location = pages[user.course];
+          }, 2000);
+        });
+    </script>
+  </body>
+</html>
