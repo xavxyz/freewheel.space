@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Namaskar</title>
+    <style>
+      body {
+        background: #222;
+      }
+
+      @keyframes open {
+        to {
+          opacity: 1;
+        }
+      }
+
+      #particles {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background: hsl(239, 44%, 9%);
+        top: 0;
+        left: 0;
+        z-index: 0;
+        opacity: 0;
+        animation: open ease-out forwards 1s;
+      }
+
+      section {
+        height: 100vh;
+        opacity: 0;
+        animation: open ease-out forwards 2s 1s;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      img {
+        width: 50vh;
+        max-width: 80vw;
+        margin-bottom: 50px;
+        border-radius: 12px;
+      }
+    </style>
+  </head>
+  <body cz-shortcut-listen="true">
+    <div id="particles"></div>
+    <script src="particles.min.js"></script>
+    <section>
+      <a href="https://www.deezer.com/fr/album/162419382">
+        <img src="./namaskar.jpg" />
+      </a>
+
+      <audio controls autoplay>
+        <source src="./namaskar.mp3" type="audio/mpeg" />
+      </audio>
+      <script>
+        const particlesContainer = document.querySelector("#particles");
+        particlesJS.load("particles", "particles.json");
+      </script>
+    </section>
+  </body>
+</html>

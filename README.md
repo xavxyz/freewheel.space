@@ -12,6 +12,8 @@
 
 - https://pyramid-space.simple.ink/ -> generation avec NextJS -> https://github.com/transitive-bullshit/nextjs-notion-starter-kit
 
+https://simonwillison.net/2023/Oct/23/embeddings/#answering-questions-with-retrieval-augmented-generation
+
 ### À détourner
 
 - https://codepen.io/sdras/pen/gWWQgb
