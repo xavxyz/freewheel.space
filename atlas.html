@@ -1,0 +1,328 @@
+<html>
+  <head>
+    <title>Atlas</title>
+    <style>
+      body {
+        margin: 0;
+        background: #fafafa;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+
+        cursor: url(cursor-auto.png), auto;
+      }
+      section {
+        display: flex;
+        justify-content: center;
+      }
+      svg {
+        margin: 5vh 5vw;
+        width: 20vw;
+        max-height: 20vh;
+        transition: transform var(--grow-timing) ease-out;
+        cursor: url(cursor-pointer.png), pointer;
+      }
+
+      svg:active {
+        cursor: url(cursor-pointer-clicked.png), pointer;
+      }
+
+      path {
+        opacity: 0.1;
+        transition: opacity var(--appear-timing) ease-in-out;
+      }
+
+      .preload {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <img class="preload" src="./cursor-pointer-clicked.png" />
+    <section>
+      <svg viewBox="0 0 18 18" id="springy-leaf">
+        <linearGradient
+          id="gradient--bottom-right"
+          gradientUnits="userSpaceOnUse"
+          x1="-258.83"
+          y1="350.908"
+          x2="-257.675"
+          y2="351.788"
+          gradientTransform="matrix(7.9714 0 0 -7.1187 2073.057 2514.68)"
+        >
+          <stop offset="0" stop-color="#0D6149" />
+          <stop offset=".37" stop-color="#03AA4F" />
+          <stop offset=".65" stop-color="#00D057" />
+          <stop offset=".912" stop-color="#5FD891" />
+          <stop offset="1" stop-color="#80DBA5" />
+        </linearGradient>
+        <path
+          d="M12.7 12.1c-1.7 1.1-2.6 2.7-3.1 3.8V18c4.1-.3 7.5-3.4 8.2-7.3-1.5-.1-3.4.2-5.1 1.4z"
+          fill="url('#gradient--bottom-right')"
+          id="bottom-right"
+        />
+        <linearGradient
+          id="gradient--bottom-left"
+          gradientUnits="userSpaceOnUse"
+          x1="-257.807"
+          y1="350.875"
+          x2="-259.058"
+          y2="351.772"
+          gradientTransform="matrix(7.9714 0 0 -7.1187 2063.885 2514.68)"
+        >
+          <stop offset="0" stop-color="#0D6149" />
+          <stop offset=".37" stop-color="#03AA4F" />
+          <stop offset=".65" stop-color="#00D057" />
+          <stop offset=".912" stop-color="#5FD891" />
+          <stop offset="1" stop-color="#80DBA5" />
+        </linearGradient>
+        <path
+          d="M8.4 15.9c-.5-1.1-1.4-2.7-3.1-3.8-1.7-1.2-3.6-1.5-5.1-1.4.8 4 4.1 7 8.2 7.3v-2.1z"
+          fill="url('#gradient--bottom-left')"
+          id="bottom-left"
+        />
+        <linearGradient
+          id="gradient--middle-left"
+          gradientUnits="userSpaceOnUse"
+          x1="-258.827"
+          y1="361.151"
+          x2="-259.598"
+          y2="362.446"
+          gradientTransform="matrix(8.1429 0 0 -8.8286 2114.457 3202.686)"
+        >
+          <stop offset="0" stop-color="#0D6149" />
+          <stop offset=".37" stop-color="#03AA4F" />
+          <stop offset=".65" stop-color="#00D057" />
+          <stop offset=".912" stop-color="#5FD891" />
+          <stop offset="1" stop-color="#80DBA5" />
+        </linearGradient>
+        <path
+          d="M6 11c1 .7 1.8 1.5 2.4 2.3V9.5C7.9 8.4 7 6.8 5.3 5.7c-1.3-.9-2.7-1.3-4-1.4C.5 5.6 0 7.2 0 8.9v.4c1.8 0 4 .3 6 1.7z"
+          fill="url('#gradient--middle-left')"
+          id="middle-left"
+        />
+        <linearGradient
+          id="gradient--middle-right"
+          gradientUnits="userSpaceOnUse"
+          x1="-259.343"
+          y1="361.195"
+          x2="-258.819"
+          y2="362.381"
+          gradientTransform="matrix(8.1429 0 0 -8.8286 2123.8 3202.686)"
+        >
+          <stop offset="0" stop-color="#0D6149" />
+          <stop offset=".37" stop-color="#03AA4F" />
+          <stop offset=".65" stop-color="#00D057" />
+          <stop offset=".912" stop-color="#5FD891" />
+          <stop offset="1" stop-color="#80DBA5" />
+        </linearGradient>
+        <path
+          d="M12 11c2-1.4 4.2-1.7 6-1.7v-.4c0-1.7-.5-3.3-1.3-4.7-1.3.1-2.6.5-4 1.4-1.7 1.2-2.6 2.8-3.1 3.9v3.8c.6-.7 1.4-1.6 2.4-2.3z"
+          fill="url('#gradient--middle-right')"
+          id="middle-right"
+        />
+        <path
+          d="M6 4.7C7 5.4 7.8 6.2 8.4 7V0C5.9.2 3.7 1.3 2.2 3.2c1.2.1 2.6.6 3.8 1.5zM15.8 3.2C14.3 1.4 12.1.2 9.6.1v7c.6-.9 1.4-1.7 2.4-2.4 1.2-.9
+        2.6-1.4 3.8-1.5z"
+          fill="hsl(155deg 100% 25%)"
+          id="top"
+        />
+      </svg>
+    </section>
+    <section>
+      <svg x="0px" y="0px" viewBox="0 0 18 18" id="sunset-hills">
+        <linearGradient
+          id="gradient--bottom"
+          gradientUnits="userSpaceOnUse"
+          x1="8.7566"
+          y1="2.3021"
+          x2="8.8565"
+          y2="9.5311"
+          gradientTransform="matrix(1 0 0 -1 0 20)"
+        >
+          <stop offset="0" stop-color="#AF478B"></stop>
+          <stop offset="0.22" stop-color="#C66191"></stop>
+          <stop offset="0.53" stop-color="#EC8C9A"></stop>
+          <stop offset="0.66" stop-color="#EE99A2"></stop>
+          <stop offset="0.88" stop-color="#F3BCB6"></stop>
+          <stop offset="1" stop-color="#F6D0C2"></stop>
+        </linearGradient>
+        <path
+          id="bottom"
+          fill="url(#gradient--bottom)"
+          d="M17,13c-1,0.4-2,0.6-3.1,0.7c-2,0.1-4-0.3-5.8-1.1c-1.8-0.8-3.8-1.1-5.8-0.9c-0.6,0.1-1.2,0.3-1.7,0.5
+			c1.8,4.6,7,6.9,11.6,5.1C14.3,16.6,16,15,17,13z"
+        ></path>
+        <linearGradient
+          id="gradient--middle-front"
+          gradientUnits="userSpaceOnUse"
+          x1="12.4555"
+          y1="6.7462"
+          x2="13.454"
+          y2="13.2264"
+          gradientTransform="matrix(1 0 0 -1 0 20)"
+        >
+          <stop offset="0" stop-color="#AF478B"></stop>
+          <stop offset="0.22" stop-color="#C66191"></stop>
+          <stop offset="0.53" stop-color="#EC8C9A"></stop>
+          <stop offset="0.66" stop-color="#EE99A2"></stop>
+          <stop offset="0.88" stop-color="#F3BCB6"></stop>
+          <stop offset="1" stop-color="#F6D0C2"></stop>
+        </linearGradient>
+        <path
+          id="middle-front"
+          fill="url(#gradient--middle-front)"
+          d="M7.8,11.1l0.8,0.3c1.7,0.7,3.5,1.1,5.3,1c1.3-0.1,2.6-0.5,3.8-1.1C17.9,10.6,18,9.8,18,9V8.7
+			C14.4,7.8,10.6,8.7,7.8,11.1z"
+        ></path>
+        <linearGradient
+          id="gradient--middle-back"
+          gradientUnits="userSpaceOnUse"
+          x1="4.1834"
+          y1="8.0334"
+          x2="5.1919"
+          y2="14.5037"
+          gradientTransform="matrix(1 0 0 -1 0 20)"
+        >
+          <stop offset="0" stop-color="#AF478B"></stop>
+          <stop offset="0.22" stop-color="#C66191"></stop>
+          <stop offset="0.53" stop-color="#EC8C9A"></stop>
+          <stop offset="0.66" stop-color="#EE99A2"></stop>
+          <stop offset="0.88" stop-color="#F3BCB6"></stop>
+          <stop offset="1" stop-color="#F6D0C2"></stop>
+        </linearGradient>
+        <path
+          id="middle-back"
+          fill="url(#gradient--middle-back)"
+          d="M0.1,7.9C0,8.3,0,8.6,0,9c0,0.7,0.1,1.3,0.2,2c0.6-0.3,1.2-0.4,1.9-0.6c1.4-0.3,2.9-0.2,4.3,0.2
+			c0.9-0.9,1.9-1.6,3-2.1c-1.4-1.2-3.2-1.9-5-1.9C2.9,6.6,1.4,7.1,0.1,7.9z"
+        ></path>
+        <path
+          id="top"
+          fill="#6e60f2"
+          d="M4.4,5.3c2.4,0,4.6,1,6.3,2.6c2.3-0.9,4.7-1.1,7.1-0.6c-0.9-4.9-5.6-8.1-10.5-7.2c-3.3,0.6-5.9,3-6.9,6.1
+			C1.7,5.7,3,5.3,4.4,5.3z"
+        ></path>
+      </svg>
+      <svg id="frozen-mountains" x="0px" y="0px" viewBox="0 0 18 18">
+        <linearGradient
+          id="middle"
+          gradientUnits="userSpaceOnUse"
+          x1="8.071497"
+          y1="3.6046767"
+          x2="9.5892"
+          y2="11.7870789"
+        >
+          <stop offset="0" stop-color="#B9EACD"></stop>
+          <stop offset="1" stop-color="#007DAF"></stop>
+        </linearGradient>
+
+        <path
+          d="M2.3222461,15.0332079C3.9692285,16.8549614,6.3507128,18,9,18 c2.640234,0,5.014863-1.1368656,6.6612301-2.9478073C11.025176,15.0413818,6.1676807,15.0334721,2.3222461,15.0332079z"
+          fill="hsl(204deg 66% 30%)"
+        ></path>
+        <path
+          d="M9.7495308,9.9141502c-0.226757-0.0123043-0.437871-0.1191797-0.5820112-0.2946091L6.2850585,6.111299 l-5.7055078,6.0680566c0.161543,0.4275875,0.3550781,0.83918,0.577002,1.2328854 c3.2708936-0.0032082,8.2101269,0.0024614,15.6741505,0.022193C17.5736427,12.1252584,18,10.6128807,18,9 c0-1.9307814-0.6100483-3.7180371-1.6450481-5.1837893l-5.9951077,5.8679295 C10.197773,9.8429594,9.9750586,9.9268064,9.7495308,9.9141502z"
+          fill="url(#middle)"
+        ></path>
+        <path
+          d="M5.735918,4.3303709C5.8953514,4.1607423,6.1177149,4.0687208,6.353086,4.075664 c0.2327342,0.0078225,0.4508786,0.1154003,0.598711,0.2953124l2.9063668,3.537334l5.4454393-5.3298192 C13.6798239,0.984375,11.4553127,0,9,0C4.0294337,0,0,4.0294337,0,9c0,0.4507914,0.0341016,0.8934965,0.0980859,1.3264456 L5.735918,4.3303709z"
+          fill="hsl(195deg 61% 48%)"
+        ></path>
+      </svg>
+    </section>
+    <script>
+      const appearTimingMs = 840;
+      const stagger = appearTimingMs * (2 / 3);
+
+      const STATES = ["DEAD", "IN_TRANSITION", "GROWN"];
+
+      function getPaths(svg) {
+        return Array.from(svg.children).filter(
+          (element) => element.tagName === "path"
+        );
+      }
+
+      function setTiming(svg, { appear, grow }) {
+        svg.style.setProperty("--appear-timing", `${appear}ms`);
+        svg.style.setProperty("--grow-timing", `${grow}ms`);
+      }
+
+      function grow(svg) {
+        svg.dataset.state = STATES[1];
+
+        const paths = getPaths(svg);
+
+        setTiming(svg, {
+          appear: appearTimingMs,
+          grow: appearTimingMs * (paths.length + 1),
+        });
+
+        setTimeout(() => {
+          svg.style.transform = "scale(1.2)";
+        }, stagger);
+
+        paths.forEach((path, index) => {
+          setTimeout(() => {
+            path.style.opacity = 1;
+          }, stagger * (index + 1));
+        });
+
+        setTimeout(() => {
+          svg.dataset.state = STATES[2];
+        }, appearTimingMs * (paths.length + 1));
+      }
+
+      function killIfNecessary(svg) {
+        return new Promise((resolve, reject) => {
+          // it's dead, no need to kill
+          if (svg.dataset.state === STATES[0]) {
+            resolve();
+          }
+          // it's grown, kill
+          else if (svg.dataset.state === STATES[2]) {
+            svg.dataset.state = STATES[1];
+
+            setTiming(svg, {
+              appear: appearTimingMs,
+              grow: appearTimingMs,
+            });
+
+            svg.style.transform = "scale(1)";
+
+            const paths = getPaths(svg);
+            paths.forEach((path) => {
+              path.style.opacity = "0.1";
+            });
+
+            setTimeout(() => {
+              svg.dataset.state = STATES[0];
+
+              resolve();
+            }, appearTimingMs);
+          } else {
+            reject();
+          }
+        });
+      }
+
+      const svgs = Array.from(document.querySelectorAll("svg"));
+
+      svgs.forEach((svg) => {
+        svg.dataset.state = STATES[0];
+
+        svg.addEventListener("click", () => {
+          if (svg.dataset.set !== STATES[1]) {
+            killIfNecessary(svg)
+              .then(() => {
+                grow(svg);
+              })
+              .catch(() => console.warn(`[${svg.id}] Already in transition`));
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
