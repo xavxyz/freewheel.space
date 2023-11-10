@@ -116,6 +116,8 @@
         };
       }
 
+      const GOLDEN_RATIO = 1.61803398875;
+
       const topPyramid = buildPyramid([
         // 前右
         new Point3d(cx + size, cy - 10, cz - size),
@@ -126,7 +128,7 @@
         // 后左
         new Point3d(cx - size, cy - 10, cz + size),
         // 山巅
-        new Point3d(cx, cy - size, cz),
+        new Point3d(cx, cy - size * GOLDEN_RATIO, cz),
       ]);
 
       const bottomPyramid = buildPyramid([
@@ -139,7 +141,7 @@
         // 后左
         new Point3d(cx - size, cy + 10, cz + size),
         // 山巅
-        new Point3d(cx, cy + size * 1.5, cz),
+        new Point3d(cx, cy + size * GOLDEN_RATIO, cz),
       ]);
 
       // ? I've lost track of how long it would take for one turn
@@ -252,7 +254,7 @@
         ctx.fillRect(0, 0, w, h);
 
         spinAround(topPyramid, "y", -baseSpeed * 36);
-        spinAround(bottomPyramid, "y", baseSpeed * 24);
+        spinAround(bottomPyramid, "y", baseSpeed * 36);
 
         manifest([
           topPyramid,
