@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>有为 // 无为 // 不无为</title>
+    <style>
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      @keyframes open {
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes loop {
+        to {
+          transform: rotate3d(1, 1, 1, 360deg);
+        }
+      }
+
+      img {
+        opacity: 0;
+        animation: open ease-out forwards 0.3s, loop linear 5s infinite;
+      }
+    </style>
+  </head>
+  <body>
+    <img src="./productivity.jpeg" />
+  </body>
+</html>
