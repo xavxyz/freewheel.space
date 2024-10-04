@@ -1,0 +1,294 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>易經</title>
+    <style>
+      /* @font-face {
+        font-family: "Blokk Neue";
+        src: local("Blokk Neue"), local("BlokkNeue"),
+          url("./BLOKKNeue-Regular.woff2") format("woff2"),
+          url("./BLOKKNeue-Regular.woff") format("woff"),
+          url("./BLOKKNeue-Regular.otf") format("opentype"),
+          url("./BLOKKNeue-Regular.ttf") format("truetype");
+      } */
+
+      body {
+        margin: 0;
+        /* font-family: "Blokk Neue"; */
+        background: #9e2529;
+        height: 100vh;
+        color: #fafafa;
+        font-size: xxx-large;
+        cursor: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/820793/cursor-auto.png),
+          auto;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .hacky-asset-prefetch {
+        display: none;
+        width: 0;
+        height: 0;
+        overflow: hidden;
+      }
+
+      div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+      }
+
+      svg {
+        max-width: 50%;
+      }
+
+      line {
+        stroke: #fafafa;
+        stroke-width: 12;
+        transition: transform 0.4s ease-out;
+      }
+
+      g {
+        cursor: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/820793/cursor-pointer.png),
+          pointer;
+      }
+
+      .base {
+        stroke: #9e2529;
+      }
+
+      .left {
+        transform-origin: 0% 50%;
+      }
+
+      g.inn .left {
+        transform: scaleX(0.666);
+      }
+
+      .right {
+        transform-origin: 100% 50%;
+      }
+
+      g.inn .right {
+        transform: scaleX(0.666);
+      }
+
+      g.clicked {
+        cursor: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/820793/cursor-pointer-clicked.png),
+          pointer;
+      }
+    </style>
+  </head>
+  <body cz-shortcut-listen="true">
+    <div>
+      <svg viewBox="0 0 64 144" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+    <img
+      class="hacky-asset-prefetch"
+      src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/820793/cursor-pointer-clicked.png"
+    />
+    <script>
+      const xmlns = "http://www.w3.org/2000/svg";
+
+      const svg = document.querySelector("svg");
+
+      /*
+       *
+       *
+       */
+      const hexagramms = [
+        [1, 1, 1, 1, 1, 1],
+        [0, 0, 0, 0, 0, 0],
+        [1, 0, 0, 0, 1, 0],
+        [0, 1, 0, 0, 0, 1],
+        [1, 1, 1, 0, 1, 0],
+        [0, 1, 0, 1, 1, 1],
+        [0, 1, 0, 0, 0, 0],
+        [0, 0, 0, 0, 1, 0],
+        [1, 1, 1, 0, 1, 1],
+        [1, 1, 0, 1, 1, 1],
+        [1, 1, 1, 0, 0, 0],
+        [0, 0, 0, 1, 1, 1],
+        [1, 0, 1, 1, 1, 1],
+        [1, 1, 1, 1, 0, 1],
+        [0, 0, 1, 0, 0, 0],
+        [0, 0, 0, 1, 0, 0],
+        [1, 0, 0, 1, 1, 0],
+        [0, 1, 1, 0, 0, 1],
+        [1, 1, 0, 0, 0, 0],
+        [0, 0, 0, 0, 1, 1],
+        [1, 0, 0, 1, 0, 1],
+        [1, 0, 1, 0, 0, 1],
+        [0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0],
+        [1, 0, 0, 1, 1, 1],
+        [1, 1, 1, 0, 0, 1],
+        [1, 0, 0, 0, 0, 1],
+        [0, 1, 1, 1, 1, 0],
+        [0, 1, 0, 0, 1, 0],
+        [1, 0, 1, 1, 0, 1],
+        [0, 0, 1, 1, 1, 0],
+        [0, 1, 1, 1, 0, 0],
+        [0, 0, 1, 1, 1, 1],
+        [1, 1, 1, 1, 0, 0],
+        [0, 0, 0, 1, 0, 1],
+        [1, 0, 1, 0, 0, 0],
+        [1, 0, 1, 0, 1, 1],
+        [1, 1, 0, 1, 0, 1],
+        [0, 0, 1, 0, 1, 0],
+        [0, 1, 0, 1, 0, 0],
+        [1, 1, 0, 0, 0, 1],
+        [1, 0, 0, 0, 1, 1],
+        [1, 1, 1, 1, 1, 0],
+        [0, 1, 1, 1, 1, 1],
+        [0, 0, 0, 1, 1, 0],
+        [0, 1, 1, 0, 0, 0],
+        [0, 1, 0, 1, 1, 0],
+        [0, 1, 1, 0, 1, 0],
+        [1, 0, 1, 1, 1, 0],
+        [0, 1, 1, 1, 0, 1],
+        [1, 0, 0, 1, 0, 0],
+        [0, 0, 1, 0, 0, 1],
+        [0, 0, 1, 0, 1, 1],
+        [1, 1, 0, 1, 0, 0],
+        [1, 0, 1, 1, 0, 0],
+        [0, 0, 1, 1, 0, 1],
+        [0, 1, 1, 0, 1, 1],
+        [1, 1, 0, 1, 1, 0],
+        [0, 1, 0, 0, 1, 1],
+        [1, 1, 0, 0, 1, 0],
+        [1, 1, 0, 0, 1, 1],
+        [0, 0, 1, 1, 0, 0],
+        [1, 0, 1, 0, 1, 0],
+        [0, 1, 0, 1, 0, 1],
+      ];
+
+      // ? 0 = 1, waow
+      const initialHexagramm = 0;
+
+      let currentHexagramm = initialHexagramm;
+
+      const spaces = Array.from({ length: 6 }, () =>
+        document.createElementNS(xmlns, "g")
+      );
+
+      spaces.forEach((space, index) => {
+        const y = 144 - 12 - index * 24;
+
+        const base = document.createElementNS(xmlns, "line");
+        base.setAttribute("x1", 0);
+        base.setAttribute("x2", 64);
+        base.setAttribute("y1", y);
+        base.setAttribute("y2", y);
+        base.classList.add("base");
+
+        const left = document.createElementNS(xmlns, "line");
+        left.setAttribute("x1", 0);
+        left.setAttribute("x2", 33);
+        left.setAttribute("y1", y);
+        left.setAttribute("y2", y);
+        left.classList.add("left");
+
+        const right = document.createElementNS(xmlns, "line");
+        right.setAttribute("x1", 31);
+        right.setAttribute("x2", 64);
+        right.setAttribute("y1", y);
+        right.setAttribute("y2", y);
+        right.classList.add("right");
+
+        space.appendChild(base);
+        space.appendChild(right);
+        space.appendChild(left);
+
+        space.addEventListener("click", function () {
+          this.classList.toggle("inn");
+          console.log(index);
+        });
+
+        space.addEventListener("mousedown", function () {
+          this.classList.add("clicked");
+        });
+
+        space.addEventListener("mouseup", function () {
+          this.classList.remove("clicked");
+        });
+
+        svg.appendChild(space);
+      });
+
+      function handleChange(hexagrammIndex = initialHexagramm) {
+        const hexagramm = hexagramms[hexagrammIndex];
+
+        document.querySelectorAll("g").forEach((space, index) => {
+          if (hexagramm[index]) {
+            space.classList.remove("inn");
+          } else {
+            space.classList.add("inn");
+          }
+        });
+      }
+
+      function left() {
+        currentHexagramm--;
+        if (currentHexagramm < 0) {
+          currentHexagramm = 63;
+        }
+        handleChange(currentHexagramm);
+      }
+
+      function right() {
+        currentHexagramm++;
+        if (currentHexagramm > 63) {
+          currentHexagramm = 0;
+        }
+
+        handleChange(currentHexagramm);
+      }
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowLeft") {
+          left();
+        }
+
+        if (event.key === "ArrowRight") {
+          right();
+        }
+        console.log(currentHexagramm, hexagramms[currentHexagramm]);
+      });
+
+      let startX;
+      let startY;
+      let endX;
+      let endY;
+      let treshold = 100; //this sets the minimum swipe distance, to avoid noise and to filter actual swipes from just moving fingers
+
+      //Function to handle swipes
+      function handleTouch(start, end, cbL, cbR) {
+        //calculate the distance on x-axis and o y-axis. Check wheter had the great moving ratio.
+        var xDist = endX - startX;
+        var yDist = endY - startY;
+        console.log(xDist);
+        console.log(yDist);
+        if (endX - startX < 0) {
+          cbR();
+        } else {
+          cbL();
+        }
+      }
+
+      window.addEventListener("touchstart", function (event) {
+        //console.log(event);
+        startX = event.touches[0].clientX;
+        startY = event.touches[0].clientY;
+      });
+
+      window.addEventListener("touchend", function (event) {
+        endX = event.changedTouches[0].clientX;
+        endY = event.changedTouches[0].clientY;
+
+        handleTouch(startX, endX, left, right);
+      });
+    </script>
+  </body>
+</html>
