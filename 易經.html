@@ -201,16 +201,20 @@
         space.appendChild(right);
         space.appendChild(left);
 
-        space.addEventListener("click", function () {
+        space.addEventListener("click", function (event) {
+          event.preventDefault();
+
           this.classList.toggle("inn");
           console.log(index);
         });
 
-        space.addEventListener("mousedown", function () {
+        space.addEventListener("mousedown", function (event) {
+          event.preventDefault();
           this.classList.add("clicked");
         });
 
-        space.addEventListener("mouseup", function () {
+        space.addEventListener("mouseup", function (event) {
+          event.preventDefault();
           this.classList.remove("clicked");
         });
 
@@ -268,12 +272,13 @@
         //calculate the distance on x-axis and o y-axis. Check wheter had the great moving ratio.
         var xDist = endX - startX;
         var yDist = endY - startY;
-        console.log(xDist);
-        console.log(yDist);
-        if (endX - startX < 0) {
-          cbR();
-        } else {
-          cbL();
+
+        if (xDist !== 0) {
+          if (endX - startX < 0) {
+            cbR();
+          } else if (endX - startX > 0) {
+            cbL();
+          }
         }
       }
 
